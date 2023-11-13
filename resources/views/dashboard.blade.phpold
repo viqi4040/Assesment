@@ -1,0 +1,83 @@
+<!-- resources/views/admin/dashboard.blade.php -->
+
+@extends('layouts.app')
+
+@section('content')
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            @include('layouts.admin.sidebar')
+
+            <!-- Main Content -->
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2">Admin Dashboard</h1>
+                </div>
+
+                <!-- Your main content goes here -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <!-- View all polio workers -->
+                        <div class="card mt-4">
+                            <div class="card-header">
+                                <h2>View All Polio Workers</h2>
+                            </div>
+                            <div class="card-body">
+                                <!-- Display a table or list of all polio workers -->
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Email</th>
+                                            <!-- Add more columns as needed -->
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- Loop through polio workers and display their information -->
+                                        {{-- @foreach($polioWorkers as $worker)
+                                            <tr>
+                                                <td>{{ $worker->name }}</td>
+                                                <td>{{ $worker->email }}</td>
+                                                <!-- Add more columns as needed -->
+                                            </tr>
+                                        @endforeach --}}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Assign polio workers to a union council -->
+                        <div class="card mt-4">
+                            <div class="card-header">
+                                <h2>Assign Polio Workers to Union Council</h2>
+                            </div>
+                            <div class="card-body">
+                                <!-- Display a form to assign polio workers to a union council -->
+                                <form action="{{ route('adminDashboard') }}" method="post">
+                                    @csrf
+                                    <label for="unionCouncil">Select Union Council:</label>
+                                    <select name="unionCouncil" id="unionCouncil" class="form-control">
+                                        <!-- Populate the select options with union councils -->
+                                        {{-- @foreach($unionCouncils as $unionCouncil)
+                                            <option value="{{ $unionCouncil->id }}">{{ $unionCouncil->name }}</option>
+                                        @endforeach --}}
+                                    </select>
+
+                                    <label for="polioWorkers">Select Polio Workers:</label>
+                                    <select name="polioWorkers[]" id="polioWorkers" class="form-control" multiple>
+                                        <!-- Populate the select options with polio workers -->
+                                        {{-- @foreach($allPolioWorkers as $worker)
+                                            <option value="{{ $worker->id }}">{{ $worker->name }}</option>
+                                        @endforeach --}}
+                                    </select>
+
+                                    <button type="submit" class="btn btn-primary mt-3">Assign Workers</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+@endsection
